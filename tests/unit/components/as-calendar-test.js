@@ -190,25 +190,37 @@ test('Change week', function(assert) {
   assert.equal(weekIndex, 0, 'it navigates back to the current week');
 });
 
-test('Start week on Monday', function(assert) {
+test('Displays week of specified day', function(assert) {
   this.render(hbs`
     {{as-calendar
       title="Ember Calendar"
-      occurrences=occurrences}}
+      occurrences=occurrences
+      startingDate="2017-06-08"}}
   `);
 
-  const firstWeekDayText = this.$('.as-calendar-timetable__column-item:first-child').text().trim();
-  assert.ok(firstWeekDayText.includes('Mon'), 'it starts week on Monday');
+  assert.equal(this.$('.as-calendar-timetable__column-item:first-child').text().trim(), 'Mon 5 Jun');
 });
 
-test('Start week on Sunday', function(assert) {
+test('Week starts from specified day', function(assert) {
   this.render(hbs`
     {{as-calendar
       title="Ember Calendar"
-      weekStart="week"
-      occurrences=occurrences}}
+      occurrences=occurrences
+      startingDate="2017-06-08"
+      startFromDate=true}}
   `);
 
-  const firstWeekDayText = this.$('.as-calendar-timetable__column-item:first-child').text().trim();
-  assert.ok(firstWeekDayText.includes('Sun'), 'it starts week on Sunday');
+  assert.equal(this.$('.as-calendar-timetable__column-item:first-child').text().trim(), 'Thu 8 Jun');
+});
+
+test('Week starts from today', function(assert) {
+  this.render(hbs`
+    {{as-calendar
+      title="Ember Calendar"
+      occurrences=occurrences
+      startFromDate=true}}
+  `);
+
+  const today = moment().format('ddd D MMM');
+  assert.equal(this.$('.as-calendar-timetable__column-item:first-child').text().trim(), today);
 });

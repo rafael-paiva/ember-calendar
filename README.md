@@ -145,9 +145,7 @@ In addition, you can customize the timezone handling using these options:
 * `defaultTimeZoneQuery`
 * `showTimeZoneSearch`
 
-By default the calendar week starts on Monday. You can change it to start on Sunday by setting to `week` the option:
-
-* `weekStart`
+You can specify the initial week displayed by the calendar using the `startingDate` option. In addition, if you want the week to begin from that day, pass `startFromDate=true`.
 
 ## Styles
 
